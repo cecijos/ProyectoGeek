@@ -71,6 +71,7 @@ class HomeView (ListView):
     model=Comentario
     template_name='mytemplates/home.html'
     ordering=['-id']
+    
 
 
 def createSala(request):

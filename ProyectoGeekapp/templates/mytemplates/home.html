@@ -1,10 +1,14 @@
-<h1>Chat</h1>
+<h1>Chat-Nombre usuario: {{user.username}}</h1>
 
 <u1>
 {% for comentario in object_list %}
-<li>{{comentario.mensaje}} - {{comentario.added_by}} - {{comentario.Nombre_sala}} -{{comentario.created_date}} -
-<a href="{% url 'UpdateComentario' comentario.pk %}">(Editar)<a/>
-<a href="{% url 'BorrarComentario' comentario.pk %}">(Borrar)<a/>
+<li>{{comentario.mensaje}} - {{comentario.added_by}} - {{comentario.Nombre_sala}} -{{comentario.created_date}}
+    {% if user.is_authenticated %}
+      {% if user.id == comentario.added_by.id %}
+        - <a href="{% url 'UpdateComentario' comentario.pk %}">(Editar)</a>
+           <a href="{% url 'BorrarComentario' comentario.pk %}">(Borrar)</a>
+      {% endif %}
+    {% endif %}
 </small> <br/>
     {{comentario.body}}</li>
     {% endfor%}

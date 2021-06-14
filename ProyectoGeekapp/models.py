@@ -38,7 +38,7 @@ class Sala(models.Model):
 class Comentario(models.Model):
     mensaje = models.CharField(max_length=200)
     Nombre_sala = models.ForeignKey(Sala, on_delete=models.CASCADE)
-    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
 
 
