@@ -25,8 +25,8 @@ class Videojuego(models.Model):
 
 class Sala(models.Model):
     title = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
-    Nombre_sala = models.ForeignKey(Videojuego, on_delete=models.CASCADE)
+
+    Nombre_juego = models.ForeignKey(Videojuego, on_delete=models.CASCADE)
     added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
 

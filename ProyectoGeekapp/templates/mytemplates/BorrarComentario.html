@@ -1,0 +1,7 @@
+<p> ¿Está seguro que quiere borrar el comentario?"¨{{item}}"</p>
+<form action="{% url 'BorrarComentario' item.id %}" method="POST">
+  {% csrf_token %}
+  <a href="{% url 'home'%}">Cancel</a>
+
+  <input type="submit" name="Confirmar">
+</form>

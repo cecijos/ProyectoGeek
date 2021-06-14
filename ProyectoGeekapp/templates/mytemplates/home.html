@@ -1,0 +1,11 @@
+<h1>Chat</h1>
+
+<u1>
+{% for comentario in object_list %}
+<li>{{comentario.mensaje}} - {{comentario.added_by}} - {{comentario.Nombre_sala}} -{{comentario.created_date}} -
+<a href="{% url 'UpdateComentario' comentario.pk %}">(Editar)<a/>
+<a href="{% url 'BorrarComentario' comentario.pk %}">(Borrar)<a/>
+</small> <br/>
+    {{comentario.body}}</li>
+    {% endfor%}
+    </u1>

@@ -15,7 +15,7 @@ class VideojuegoAdmin(admin.ModelAdmin):
 
 class SalaAdmin(admin.ModelAdmin):
     search_fields = ['title']
-    list_display = ['title', 'Nombre_sala']
+    list_display = ['title', 'Nombre_juego']
 
 
 class ComentarioAdmin(admin.ModelAdmin):
