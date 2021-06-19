@@ -1,0 +1,20 @@
+<span xmlns="http://www.w3.org/1999/html">Chat-Nombre usuario: {{user.username}}</span>
+<span><a href="{% url 'logout' %}">(Salir)</a></span>
+
+
+   <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">"Buscar" </button>
+
+   </form>
+   <u1>
+  {% for comentario in filter.qs %}
+     <li>{{comentario.Nombre_sala}} - {{comentario.mensaje}} - {{comentario.added_by}} - {{comentario.created_date}}<li/>
+
+  {% endfor %}
+   </u1>
+
+
+
+
+

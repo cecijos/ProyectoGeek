@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect
+
+
 
 # Create your views here.
 
+from django.shortcuts import render, redirect
 
-
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from .models import Videojuego
 from .models import Sala
 from .models import Comentario
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
+
 from .forms import SalaForm
 from .forms import ComentarioForm
 from django.contrib import messages
@@ -18,7 +19,8 @@ from django.views.generic import ListView
 
 
 
-from rest_framework import viewsets
+
+
 
 def signup(request):
     if request.method == 'POST':
@@ -37,6 +39,7 @@ def login_page(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -48,30 +51,30 @@ def login_page(request):
     context = {}
     return render(request, 'mytemplates/login.html', context)
 
-class VideojuegoViewSet (viewsets.ModelViewSet):
-    queryset = Videojuego.objects.all
-
-
-
-
-class SalarViewSet (viewsets.ModelViewSet):
-    queryset = Sala.objects.all()
-
-
-class ComentarioViewSet(viewsets.ModelViewSet):
-        queryset = Comentario.objects.all()
+def log_out(request):
+    logout(request)
+    return redirect('login')
 
 
 
 
 
-#def home(request):
-    #return  HttpResponse ('Home Page')
+
 class HomeView (ListView):
     model=Comentario
     template_name='mytemplates/home.html'
     ordering=['-id']
-    
+    search_fields = ["Nombre_sala__title"]
+
+
+def filterchats (request):
+    chats=Comentario.objects.all()
+    filtercoment=ComentarioFilter(request.GET,queryset=chats)
+
+    return render(request,'mytemplates/busqueda.html',{'filter':filtercoment})
+
+
+
 
 
 def createSala(request):
@@ -83,26 +86,29 @@ def createSala(request):
             form.save()
             return redirect('/')
     context={'form':form}
+
     return render(request, 'mytemplates/sala_form.html',context)
 
 
 def createComentario(request):
     form=ComentarioForm()
     if request.method=='POST':
-        #print('PRINT POST',request.POST)
+
         form=ComentarioForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
     context={'form':form}
+
     return render(request, 'mytemplates/comentario_form.html',context)
 
 
 def UpdateComentario(request,pk):
     comentario=Comentario.objects.get(id=pk)
     form=ComentarioForm(instance=comentario)
+
     if request.method=='POST':
-        #print('PRINT POST',request.POST)
+
         form=ComentarioForm(request.POST,instance=comentario)
         if form.is_valid():
             form.save()
@@ -118,8 +124,6 @@ def BorrarComentario(request,pk):
     context={'item':comentario}
     return render(request,'mytemplates/BorrarComentario.html',context)
 
-#def contact(request):
-    #return  render (request,'mytemplates/register.html')
 
 
 

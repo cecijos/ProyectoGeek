@@ -1,6 +1,11 @@
-<h1>Chat-Nombre usuario: {{user.username}}</h1>
 
-<u1>
+<span xmlns="http://www.w3.org/1999/html">Chat-Nombre usuario: {{user.username}}</span>
+<span><a href="{% url 'logout' %}">(Salir)</a></span>
+
+
+
+
+
 {% for comentario in object_list %}
 <li>{{comentario.mensaje}} - {{comentario.added_by}} - {{comentario.Nombre_sala}} -{{comentario.created_date}}
     {% if user.is_authenticated %}
@@ -9,7 +14,8 @@
            <a href="{% url 'BorrarComentario' comentario.pk %}">(Borrar)</a>
       {% endif %}
     {% endif %}
-</small> <br/>
+
     {{comentario.body}}</li>
     {% endfor%}
-    </u1>
+
+
